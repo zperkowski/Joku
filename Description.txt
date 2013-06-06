@@ -1,0 +1,56 @@
+Główna pętla programu:
+void loop()
+{
+  testLed();
+  testButton();
+  gra();
+  delay(5000);
+}
+
+testLed() - po zmontowaniu układu i załadowaniu kodu funkcja informuje czy zostały wszystkie diody odpowiednio podłączone.
+Przez 9 sekund powinny się świecić wszystkie 3 czerwone diody, w tym wszystkie 3 kolory diody RGB, która się zmienia co 3 sek.
+3x czerwona dioda + 3x 3 kolory diody RGB w kolejności: czerwone, zielone, niebieskie.
+Gdy wszystkie się nie świecą należy sprawdzić połączenia.
+
+testButton() - użytkownik ma 10sekund na sprawdzenie czy przyciski działają.
+Sprawdza się to przez wciskanie pojedyńczo każdego przycisku.
+Jeżeli po wciśnięciu najbliższa dioda się nie świeci, należy sprawdzić połączenia.
+Button1 - Led1, Button2 - Led2, Button3 - Led3.
+
+gra() - Główna rozgrywka. Opis kolejno wykonywanych czynności:
+W pierwszej linijce jest możliwość zmiany poziomów.
+Program akutomatycznie dobiera długość tablicy według przykładu:
+Gdy poziomów jest 3:
+1
+2 3
+4 5 6
+Gdy poziomów jest 4:
+1
+2 3
+4 5 6
+7 8 9 10
+itd.
+//
+Program inicjuje i losuje zawartość tablicy tab[]
+Zawartość to sekwencje świecenia na danym poziomie gry
+//
+Program inicjuje tablice graczTab[], gdzie będą przechowywane odpowiedzi gracza.
+//
+Inicjuje zmienna bool przegrana do sprawdzenia różnic pomiędzy tab[], a graczTab[].
+//
+Program na monitorze portu szeregowego(9600) wypisuje zawartość tablicy tab[] w celu sprawdzenia poprawności działania programu.
+//
+*Zaczyna się świecić kolejno tyle diod jaki poziom aktualnie jest rozgrywany. Np.:
+Poziom 2 - świecą się 2 diody kolejno.
+//
+Gracz wpisuje za pomocą przycisków taką sekwencje świecenia diod, jaką zapamiętał.
+Uwaga! Żeby gracz nie przyciskał przycisku zbyt długo lub zbyt krótko należy uważnie obserwować kiedy wszystkie 3 diody czerwone zaczną się świecić. Wtedy niezwłocznie należy puścić przycisk.
+Gracz tyle razy może odpowiadać ile się świeciło diod. Np.:
+Świeciły się 2 diody - gracz wciska 2 guziki.
+//
+Pętla się zapętla i jest rozgrywany kolejny poziom, gdy kolejny jest dostępny.
+Powrót wyżej do miejsca gdzie jest *
+//
+Program na monitorze portu szeregowego(9600) wypisuje zawartość tablicy graczTab[] w celu sprawdzenia poprawności działania programu i porównania z wcześniej wypisaną tablicą tab[]
+//
+Gdy dwie ww. tablice się zgadzają użytkownik wygrywa, w przeciwnym wypadku przegrywa.
