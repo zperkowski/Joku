@@ -28,6 +28,8 @@ void setup()
   pinMode(button1, INPUT);
   pinMode(button2, INPUT);
   pinMode(button3, INPUT);  
+  
+  pinMode(buzzer, OUTPUT);
 
   digitalWrite(RGB_R, LOW); 
   digitalWrite(RGB_G, LOW); 
@@ -35,12 +37,15 @@ void setup()
   digitalWrite(led1, LOW);
   digitalWrite(led2, LOW);
   digitalWrite(led3, LOW);  
+  
+  
 }
 
 void loop()
 {
   testLed();
   testButton();
+  testBuzzer();
   gra();
   delay(5000);
 }
@@ -72,15 +77,24 @@ void testButton()
   while(czas < 1000)
   {
      if(digitalRead(button1) == HIGH)
+     {
        digitalWrite(led1, HIGH);
+       buzz(1);
+     };
      else
-       digitalWrite(led1, LOW);
+         digitalWrite(led1, LOW);
      if(digitalRead(button2) == HIGH)
+     {
        digitalWrite(led2, HIGH);
+       buzz(1);
+     };
      else
        digitalWrite(led2, LOW);       
      if(digitalRead(button3) == HIGH)
+     {
        digitalWrite(led3, HIGH);
+       buzz(1);
+     };
      else
        digitalWrite(led3, LOW);       
      delay(10);
@@ -90,6 +104,63 @@ void testButton()
    digitalWrite(led1, LOW);
    digitalWrite(led2, LOW);
    digitalWrite(led3, LOW);    
+}
+
+void testBuzzer()
+{
+  for (int j = 0; j<3; j++)
+  {
+    for (int buzz = 0; buzz<300; buzz++)
+    {
+      digitalWrite(buzzer, HIGH);
+      delay(1);
+      digitalWrite(buzzer, LOW);
+      delay(1);
+    }
+    delay(300);
+  }
+}
+
+void buzz(int melodia) //funkcja zawiera zestaw melodii buzzera.
+{
+  switch (melodia)
+  {
+    case 1: //melodia przy wcisnieciu guzika podczas gry
+    {
+      for (int z = 0; z<300; z++)
+      {
+        digitalWrite(buzzer, HIGH);
+        delay(1);
+        digitalWrite(buzzer, LOW);
+        delay(1);
+      }
+    } break;
+    case 2: //melodia przy wygranej
+    {
+      for (int z1 = 0; z1<3; z1++)
+      {
+        for (int z2 = 0; z2<300; z2++)
+        {
+          digitalWrite(buzzer, HIGH);
+          delayMicroseconds(100);
+          digitalWrite(buzzer, LOW);
+          delayMicroseconds(100);
+        }
+        delay(300);
+      }
+    } break;
+    case 3: // melodia przy przegranej
+    {
+      for (int z = 0; z<300; z++)
+      {
+        digitalWrite(buzzer, HIGH);
+        delay(3);
+        digitalWrite(buzzer, LOW);
+        delay(3);
+      }
+    }
+  }
+  
 }
 
 void gra()
@@ -149,16 +220,19 @@ void gra()
         while(k <= i){
           if(digitalRead(button1) == HIGH)
           {
+           buzz(1);
            graczTab[y] = 1;
            break;
           }
           else if(digitalRead(button2) == HIGH)
           {
+           buzz(1);
            graczTab[y] = 2;
            break;
           }
           else if(digitalRead(button3) == HIGH)
           {
+           buzz(1);
            graczTab[y] = 3;
            break;
           }
@@ -194,8 +268,18 @@ void gra()
       przegrana = true;
   
   if(przegrana)
+  {
     Serial.println("Przegrales");
+    digitalWrite(RGB_R, HIGH);
+    buzz(3);
+  }
   else if(!przegrana)
+  {
     Serial.println("Wygrales");
-  
+    digitalWrite(RGB_G, HIGH);
+    buzz(2);
+  }
+  delay(1000);
+  digitalWrite(RGB_R, LOW);
+  digitalWrite(RGB_G, LOW);
 }
