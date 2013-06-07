@@ -10,6 +10,8 @@ int button1 = 8; //Przycisk S1
 int button2 = 7; //Przycisk S2
 int button3 = 6; //Przycisk S3
 
+int buzzer = 10; //Glosnik
+
 void setup()
 {
   //Ewentualny podglad danych dla programisty
