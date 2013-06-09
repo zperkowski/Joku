@@ -16,3 +16,5 @@ Liczba graczy
 Oprogramowanie
 Gra Joku została stworzona przy użyciu oprogramowania Arduino 1.0.5.
 Schemat układu został narysowany przy użyciu Fritzing 0.7.12.
+
+Jedynie do zastosowań niekomercyjnych.
