@@ -1,4 +1,4 @@
-Główna pętla programu:
+﻿Główna pętla programu:
 void loop()
 {
   testLed();
@@ -16,6 +16,8 @@ testButton() - użytkownik ma 10sekund na sprawdzenie czy przyciski działają.
 Sprawdza się to przez wciskanie pojedyńczo każdego przycisku.
 Jeżeli po wciśnięciu najbliższa dioda się nie świeci, należy sprawdzić połączenia.
 Button1 - Led1, Button2 - Led2, Button3 - Led3.
+
+testBuzzer() - sprawdzenie sprawności głośnika.
 
 gra() - Główna rozgrywka. Opis kolejno wykonywanych czynności:
 W pierwszej linijce jest możliwość zmiany poziomów.
@@ -44,13 +46,17 @@ Program na monitorze portu szeregowego(9600) wypisuje zawartość tablicy tab[] 
 Poziom 2 - świecą się 2 diody kolejno.
 //
 Gracz wpisuje za pomocą przycisków taką sekwencje świecenia diod, jaką zapamiętał.
-Uwaga! Żeby gracz nie przyciskał przycisku zbyt długo lub zbyt krótko należy uważnie obserwować kiedy wszystkie 3 diody czerwone zaczną się świecić. Wtedy niezwłocznie należy puścić przycisk.
+Uwaga! Żeby gracz nie przyciskał przycisku zbyt długo lub zbyt krótko należy uważnie obserwować kiedy wszystkie 3 diody czerwone zaczną się świecić oraz głośnik wydawać krótki dźwięk.
+Wtedy niezwłocznie należy puścić przycisk.
 Gracz tyle razy może odpowiadać ile się świeciło diod. Np.:
 Świeciły się 2 diody - gracz wciska 2 guziki.
 //
 Pętla się zapętla i jest rozgrywany kolejny poziom, gdy kolejny jest dostępny.
 Powrót wyżej do miejsca gdzie jest *
 //
-Program na monitorze portu szeregowego(9600) wypisuje zawartość tablicy graczTab[] w celu sprawdzenia poprawności działania programu i porównania z wcześniej wypisaną tablicą tab[]
+Program na monitorze portu szeregowego(9600) wypisuje zawartość tablicy graczTab[] w celu sprawdzenia poprawności działania programu i porównania z wcześniej wypisaną tablicą tab[].
+Fuknkcja jest standardowo zakomentowana. Jej nazwa to wypiszTab().
 //
 Gdy dwie ww. tablice się zgadzają użytkownik wygrywa, w przeciwnym wypadku przegrywa.
+Wygrana jest sygnalizowana kolorem zielonym oraz weselszym tonem głośnika.
+Przegrana jest sygnalizowana kolorem czerwonym oraz mniej wesołym tonem głośnika.

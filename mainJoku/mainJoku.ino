@@ -46,8 +46,11 @@ void loop()
   testLed();
   testButton();
   testBuzzer();
-  gra();
-  delay(5000);
+  while(true)
+  {
+    gra();
+    delay(5000);
+  }
 }
 
 //Test podlaczenia ukladu. Wszystkie diody swieca sie przez 9sek.
@@ -80,21 +83,21 @@ void testButton()
      {
        digitalWrite(led1, HIGH);
        buzz(1);
-     };
+     }
      else
          digitalWrite(led1, LOW);
      if(digitalRead(button2) == HIGH)
      {
        digitalWrite(led2, HIGH);
        buzz(1);
-     };
+     }
      else
        digitalWrite(led2, LOW);       
      if(digitalRead(button3) == HIGH)
      {
        digitalWrite(led3, HIGH);
        buzz(1);
-     };
+     }
      else
        digitalWrite(led3, LOW);       
      delay(10);
@@ -110,7 +113,7 @@ void testBuzzer()
 {
   for (int j = 0; j<3; j++)
   {
-    for (int buzz = 0; buzz<300; buzz++)
+    for (int buzz = 0; buzz<100; buzz++)
     {
       digitalWrite(buzzer, HIGH);
       delay(1);
@@ -127,6 +130,9 @@ void buzz(int melodia) //funkcja zawiera zestaw melodii buzzera.
   {
     case 1: //melodia przy wcisnieciu guzika podczas gry
     {
+      digitalWrite(led1, HIGH);
+      digitalWrite(led2, HIGH);
+      digitalWrite(led3, HIGH);      
       for (int z = 0; z<300; z++)
       {
         digitalWrite(buzzer, HIGH);
@@ -134,6 +140,10 @@ void buzz(int melodia) //funkcja zawiera zestaw melodii buzzera.
         digitalWrite(buzzer, LOW);
         delay(1);
       }
+      digitalWrite(led1, LOW);
+      digitalWrite(led2, LOW);
+      digitalWrite(led3, LOW);     
+      delay(400);      
     } break;
     case 2: //melodia przy wygranej
     {
@@ -160,13 +170,15 @@ void buzz(int melodia) //funkcja zawiera zestaw melodii buzzera.
       }
     }
   }
-  
+    digitalWrite(led1, LOW);
+    digitalWrite(led2, LOW);
+    digitalWrite(led2, LOW); 
 }
 
 void gra()
 {
   //Przechowuje podana ilosc poziomow rozgrywki
-  const int poziomy = 3;
+  const int poziomy = 6;
   /*
   *  Ze wzgledu na to, ze łatwo wyjsc poza zakres tablicy podajac wlasnorecznie wartosci
   *  zmiennych poziomy i x, program sam oblicza x - odpowiednia wielkosc tablicy
@@ -185,8 +197,12 @@ void gra()
   for(unsigned int i = 0; i < dlTab; i++)
     tab[i] = random(1, 4);
     
-  for(unsigned int i = 0; i < dlTab; i++)
+   /*
+   //W tym miejscu mozna wypisac tablice, ktora bedzie
+   //podstawa do kolejnosci swiecenia diod - pomoc dla programi
+   for(unsigned int i = 0; i < dlTab; i++)
     Serial.println(tab[i]);
+   */
   delay(1000);
   //Sprawdza czy gracz sie pomylil
   bool przegrana = false;
@@ -239,14 +255,6 @@ void gra()
           delay(150);
         }
         y++;
-        digitalWrite(led1, HIGH);
-        digitalWrite(led2, HIGH);
-        digitalWrite(led3, HIGH);
-        delay(500);   
-        digitalWrite(led1, LOW);
-        digitalWrite(led2, LOW);
-        digitalWrite(led3, LOW);        
-        delay(500);  
       }
     digitalWrite(led1, LOW);
     digitalWrite(led2, LOW);
@@ -283,3 +291,4 @@ void gra()
   digitalWrite(RGB_R, LOW);
   digitalWrite(RGB_G, LOW);
 }
+
